@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <title>게시판</title>
+</head>
+<style>
+    body{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+    }
+    .box > button {
+        position: absolute;
+        right: 20%;
+
+    }
+    .box {
+        width: 70%;
+        margin-top: 20px;
+    }
+    table{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        margin-top: 20px;
+        border-collapse:collapse;
+    }
+
+    th, td{
+        text-align: left;
+        border-bottom: 1px solid grey;
+    }
+
+</style>
+<script>
+
+
+</script>
+
+
+<body>
+<div class="box">
+
+        <button onclick="window.location.href='/board/write'">새 글 작성</button>
+
+    <table>
+        <thead>
+            <tr class="list-head" style="height:35px;">
+                <th style="width: 100px;">작성자</th>
+                <th style="width: 300px;">제목</th>
+                <th style="width: 200px;">최종 수정시간</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="board:${list}" style="height: 35px; border-bottom: 1px solid grey;">
+                <td th:text="${board.name}" style="width: 100px;">홍길동</td>
+                <td style="width: 300px;"><a th:text="${board.title}" th:href="@{board/view/(id=${board.id})}">게시글 제목</a></td>
+                <td th:text="${board.modifiedAt}" style="width: 200px;">10:11</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

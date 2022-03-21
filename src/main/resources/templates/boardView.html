@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 상세 페이지</title>
+</head>
+<style>
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: aliceblue;
+    }
+    .post_box{
+        width: 700px;
+        height: 500px;
+
+    }
+    .title {
+
+    }
+    .text{
+        width: 650px;
+        height: 90%;
+        margin-top: 10px;
+        padding: 5px 5px 5px 5px;
+        border: 1px solid black;
+        background-color: white;
+    }
+    .text_box{
+        width: 700px;
+        height: 90%;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+<body>
+    <h1>게시글 상세페이지</h1>
+    <div class="post_box">
+        <div>
+            <p th:text="${boardDetail.title}" class="title">제목</p>
+            <hr/>
+            <span th:text="${boardDetail.name}" class="name">작성자</span>
+            <hr/>
+            <span th:text="${boardDetail.modifiedAt}" style="font-size: 10pt">시간</span>
+        </div>
+        <div class="text_box" >
+            <div th:text="${boardDetail.content}" class="text">
+                내용
+            </div>
+        </div>
+        <button onclick="window.history.back()">뒤로가기</button>
+    </div>
+
+
+</body>
+</html>
