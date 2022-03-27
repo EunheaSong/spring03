@@ -1,4 +1,4 @@
-package com.board.spring03.momain;
+package com.board.spring03.model;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
@@ -7,7 +7,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.PrePersist;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter //private 이라서 getter 꼭 써줘야한다 !
 @MappedSuperclass // 상속했을 때, 컬럼으로 인식하게 합니다.
@@ -19,4 +22,7 @@ public abstract class Timestamped {
 
     @LastModifiedDate // 마지막 수정일자임을 나타냅니다.
     private LocalDateTime modifiedAt;
+
+
+
 }

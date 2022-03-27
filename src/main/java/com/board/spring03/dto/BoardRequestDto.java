@@ -1,4 +1,4 @@
-package com.board.spring03.momain;
+package com.board.spring03.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

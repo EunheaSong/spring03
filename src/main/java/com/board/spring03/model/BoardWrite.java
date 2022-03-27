@@ -1,6 +1,7 @@
-package com.board.spring03.momain;
+package com.board.spring03.model;
 
 
+import com.board.spring03.dto.BoardRequestDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,7 +17,7 @@ public class BoardWrite extends Timestamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private Long id;
 
     @Column(nullable = false)
     private String name;
@@ -27,15 +28,15 @@ public class BoardWrite extends Timestamped {
     @Column(nullable = false)
     private String content;
 
-    public BoardWrite (String name, String title, String content){
-        this.name = name;
-        this.title = title;
-        this.content = content;
-    }
-    public BoardWrite(BoardRequestDto requestDto) {
+    @Column(nullable = false)
+    private Long userId;
+
+
+    public BoardWrite(BoardRequestDto requestDto, Long userId) {
         this.name = requestDto.getName();
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
+        this.userId = userId;
     }
 }
 
