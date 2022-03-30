@@ -75,8 +75,8 @@
         </thead>
         <tbody>
             <tr th:each="board:${list}" style="height: 35px; border-bottom: 1px solid grey;">
-                <td th:text="${board.name}" style="width: 100px;">홍길동</td>
-                <td style="width: 300px;"><a th:text="${board.title}" th:href="@{board/view/(id=${board.id})}">게시글 제목</a></td>
+                <td th:text="${board.userId.username}" style="width: 100px;">홍길동</td>
+                <td style="width: 300px;"><a th:text="${board.title}" th:href="@{board/view/{id}(id=${board.id})}">게시글 제목</a></td>
                 <td th:text="${board.modifiedAt}" style="width: 200px;">10:11</td>
             </tr>
         </tbody>

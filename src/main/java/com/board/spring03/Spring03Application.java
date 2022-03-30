@@ -14,8 +14,8 @@ public class Spring03Application {
     public static void main(String[] args) {
         SpringApplication.run(Spring03Application.class, args);
     }
-        @PostConstruct
-        public void started(){
-            TimeZone.setDefault(TimeZone.getTimeZone("Asia/Seoul"));
-        }
+//        @PostConstruct
+//        public void started(){
+//            TimeZone.setDefault(TimeZone.getTimeZone("Asia/Seoul"));
+//        }
 }

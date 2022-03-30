@@ -44,16 +44,15 @@
     }
 
     function post_in() {
-        let name = $('#name').val();
+        // let name = $('#name').val();
         let title = $('#title').val();
         let content = $('#content').val();
-        let data = {'name': name, 'title': title, 'content': content};
+        let data = {'title': title, 'content': content};
+        // let data = {'name': name, 'title': title, 'content': content};
 
-        if (name == "" || title == "") {
-            alert('이름과 제목을 확인해주세요!');
-        }else if (content == "") {
-            alert('내용을 입력해주세요!');
 
+        if (content == "" || title == "") {
+            alert('내용과 제목을 확인해주세요!');
         } else {
             $.ajax({
                 type: "POST",
@@ -82,7 +81,7 @@
     <!--    </form>-->
         <h1>게시글 작성하기</h1>
         <form class="post" id="form">
-            <input id="name" name="name" type="text" placeholder="성함을 입력해주세요.">
+<!--            <input id="name" name="name" type="text" placeholder="성함을 입력해주세요.">-->
             <input id="title" name="title" type="text" placeholder="제목을 입력해주세요.">
             <textarea id="content" name="content" onkeydown="resize(this)" onkeyup="resize(this)"
             placeholder="자유롭게 내용을 적어주세요."></textarea>
