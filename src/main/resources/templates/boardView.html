@@ -98,12 +98,8 @@
 
 </style>
 <script th:inline="javascript">
-    // $(document).ready(function () {
-    //     hide();
-    // });
-    // function hide (){
-    //     .hide()
-    // }
+
+
     function comment_in(id) {
         let comment = $('#comments').val();
         let userId = [[${nowUser}]]
@@ -122,7 +118,7 @@
                 contentType: "application/json", // JSON 형식으로 전달함을 알리기
                 data: JSON.stringify(data),
                 success: function (response) {
-                    alert('덧글 등록!');
+                    alert('댓글 등록!');
                     window.location.reload();
                 }
             });
@@ -130,20 +126,36 @@
         }
     }
 
+    function back_reply(replyId){
+
+    }
+
     function open_reply(replyId){
 
-        let username = $(`#${replyId}-username`).text().trim();
-        let contents = $(`#${replyId}-textarea`).val().trim();
+        $(`${replyId}-b`).hide()
+
+        let temp_html = `<div>
+                            <span th:text="${reply.userId.username}" style="border-bottom:1px solid grey; ">작성자</span>
+                            <textarea id="edit_reply" placeholder="메세지를 남겨보세요!" style=" resize: none; width: 500px;"
+                                      onkeydown="resize(this)" onkeyup="resize(this)"></textarea>
+                        </div>
+                        <div class="user_button">
+                            <button th:attr="onclick=|update_reply(${reply.id})|">수정완료</button>
+                            <button th:attr="onclick=|back_reply(${reply.id})|">취소</button>
+                        </div>`
+        $(`${replyId}-a`).append(temp_html)
+
     }
 
     function update_reply(replyId){
-        $[".edit_reply"].hide()
-        let username = $(`#${replyId}-username`).text().trim();
-        let contents = $(`#${replyId}-textarea`).val().trim();
+        $('#edit_reply').hide()
 
         if (isValidContents(contents) == false) {
+
             return;
         }
+        let edit_reply = $('#edit_reply').val()
+        let data = {'comment' : edit_reply}
         $.ajax({
             type: "PUT",
             url: `/board/reply/up/${replyId}`,
@@ -175,10 +187,10 @@
 </script>
 <body>
 <h1>게시글 상세페이지</h1>
-<div th:if="${reply.userId.username}==${nowUser}">
-    <button>수정하기</button>
-    <button>삭제하기</button>
-</div>
+<!--<div th:if="${reply.userId.username}==${nowUser}">-->
+<!--    <button>수정하기</button>-->
+<!--    <button>삭제하기</button>-->
+<!--</div>-->
 <div class="post_box">
 
 
@@ -200,8 +212,9 @@
     <div class="comments_box">
 
         <div class="comment" id="comment">
-                    <textarea id="comments" placeholder="메세지를 남겨보세요!" style=" resize: none; width: 500px;"
-                              onkeydown="resize(this)" onkeyup="resize(this)"></textarea>
+            <label for="comments"></label>
+            <textarea id="comments" placeholder="메세지를 남겨보세요!" style=" resize: none; width: 500px;"
+                                                    onkeydown="resize(this)" onkeyup="resize(this)"></textarea>
             <button type="button" class="btn btn-dark"
                     th:onclick="|javascript:comment_in('${boardDetail.id}')|">등록
             </button>
@@ -211,15 +224,19 @@
 
         <div th:each="reply:${boardDetail.reply}" class="card" style="width: 620px;">
             <div th:id="|${reply.id}-a|" class="list-group-item">
-                <div>
-                    <span th:text="${reply.userId.username}" style="border-bottom:1px solid grey; ">작성자</span>
-                    <P th:text="${reply.comment}">An item</P>
+                <div th:id="|${reply.id}-b|">
+                    <div>
+                        <span th:text="${reply.userId.username}" style="border-bottom:1px solid grey; ">작성자</span>
+                        <P th:text="${reply.comment}">An item</P>
+                    </div>
+                    <div class="user_button" th:if="${reply.userId.username}==${nowUser}">
+                        <button th:attr="onclick=|open_reply(${reply.id})|">수정</button>
+                        <button th:attr="onclick=|delete_reply(${reply.id})|">삭제</button>
+                    </div>
                 </div>
-                <div class="user_button" th:if="${reply.userId.username}==${nowUser}">
-                    <button th:attr="onclick=|open_reply(${reply.id})|">수정</button>
-                    <button th:attr="onclick=|delete_reply(${reply.id})|">삭제</button>
-                </div>
+
             </div>
+
         </div>
     </div>
     <button onclick="location.href='/'">뒤로가기</button>

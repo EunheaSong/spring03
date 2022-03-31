@@ -69,11 +69,11 @@ public class BoardController {
 
 
     @PostMapping("/board/view/{id}")
-    public void reply(@PathVariable Long id, @RequestBody ReplyRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+    public String reply(@PathVariable Long id, @RequestBody ReplyRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
         System.out.println(requestDto.getComment());
         boardService.replySave(userDetails.getUser(),id,requestDto);
         System.out.println(requestDto.getComment());
-//        return "/board/view/{id}";
+        return "redirect:/board/view/{id}";
     }
 
 
