@@ -131,8 +131,9 @@
     }
 
     function open_reply(replyId){
+        let a = replyId;
 
-        $(`${replyId}-b`).hide()
+        $(`#${replyId}_b`).hide()
 
         let temp_html = `<div>
                             <span th:text="${reply.userId.username}" style="border-bottom:1px solid grey; ">작성자</span>
@@ -143,7 +144,7 @@
                             <button th:attr="onclick=|update_reply(${reply.id})|">수정완료</button>
                             <button th:attr="onclick=|back_reply(${reply.id})|">취소</button>
                         </div>`
-        $(`${replyId}-a`).append(temp_html)
+        $(`#${a}_a`).append(temp_html)
 
     }
 
@@ -223,8 +224,8 @@
 
 
         <div th:each="reply:${boardDetail.reply}" class="card" style="width: 620px;">
-            <div th:id="|${reply.id}-a|" class="list-group-item">
-                <div th:id="|${reply.id}-b|">
+            <div th:id="|${reply.id}_a|" class="list-group-item">
+                <div th:id="|${reply.id}_b|">
                     <div>
                         <span th:text="${reply.userId.username}" style="border-bottom:1px solid grey; ">작성자</span>
                         <P th:text="${reply.comment}">An item</P>

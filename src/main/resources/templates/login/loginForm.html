@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"  integrity="sha384MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!--    <link rel="stylesheet" href="css/style.css">-->
+    <title>로그인</title>
+</head>
+<style>
+    .login{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        margin-top: 30px;
+        padding: 20px 20px 20px 20px;
+
+        border: 1px solid white;
+        border-radius: 10px;
+        box-shadow: 0px 0px 3px 0px gray;
+    }
+
+    .form-control {
+        width: 500px;
+    }
+
+</style>
+<script th:inline="javascript">
+
+    $(document).ready(function () {
+        // HTML 문서를 로드할 때마다 실행합니다.
+        let loggedIn = [[${loggedIn}]]
+        if(loggedIn) {
+            alert([[${message}]])
+            window.location.replace('/')
+        }
+    })
+
+</script>
+
+<body>
+<div class="login" id="login-form">
+    <h1 id="login-title">봄 타투</h1>
+    <button id="login-kakao-btn" onclick="location.href='https://kauth.kakao.com/oauth/authorize?client_id=108093c574bab18e59951ffcfd592e70&redirect_uri=http://3.38.102.244/user/kakao/callback&response_type=code'">
+        카카오로 로그인하기
+    </button>
+
+    <form action="/user/login" method="post">
+        <div class="login-id-label">ID</div>
+        <input type="text" name="username" class="form-control">
+<br>
+
+        <div class="login-id-label">Password</div>
+        <input type="password" name="password" class="form-control">
+<br>
+        <button id="login-id-submit">로그인
+        <button id="login-id-btn" onclick="location.href='/user/signup'">회원 가입하기</button>
+    </form>
+    <div id="login-failed" style="display:none" class="alert alert-danger" role="alert">아이디와 패스워드를 확인해주세요.</div>
+</div>
+</body>
+<script>
+    const href = location.href;
+    const queryString = href.substring(href.indexOf("?")+1)
+    if (queryString === 'error') {
+        const errorDiv = document.getElementById('login-failed');
+        errorDiv.style.display = 'block';
+    }
+</script>
+</html>

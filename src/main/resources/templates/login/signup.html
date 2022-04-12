@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"  integrity="sha384MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>회원가입</title>
+</head>
+
+<script>
+    function onclickAdmin() {
+        // Get the checkbox
+        var checkBox = document.getElementById("admin-check");
+        // Get the output text
+        var box = document.getElementById("admin-token");
+
+        // If the checkbox is checked, display the output text
+        if (checkBox.checked == true){
+            box.style.display = "block";
+        } else {
+            box.style.display = "none";
+        }
+    }
+
+</script>
+<style>
+    body{
+        padding-top: 30px;
+    }
+    .signup{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        border: 1px solid white;
+        border-radius: 10px;
+        box-shadow: 0px 0px 3px 0px gray;
+    }
+    .title{
+        margin-top: 20px;
+    }
+    .field-error{
+        color: red;
+        font-size: small;
+    }
+    .signup_info > input{
+       width: 500px;
+    }
+
+</style>
+<body>
+<div class="signup">
+<!--    <div class="title" id="login-title">봄 타투</div>-->
+
+    <h1 class="title">봄 타투</h1>
+    <div id="login-form">
+        <form action="/user/signup" th:action th:object="${userRequestDto}" method="post">
+            <div th:if="${#fields.hasGlobalErrors()}">
+                <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">글로벌 오류 메시지</p>
+            </div>
+            <div class="signup_info">
+                <div class="login-id-label">ID</div>
+                <input type="text" name="username" id="username" placeholder="영문 필수포함, 숫자가능, 3자~10자로 입력해주세요" class="form-control"
+                       th:field="*{username}" th:errorclass="field-error">
+                <!--            <p>영문 포함 숫자가능, 3자이상 10자 미만입니다.</p>-->
+                <p class="field-error" th:errors="*{username}"></p>
+
+                <div class="login-id-label">E-mail</div>
+                <input type="text" name="email" id="email" placeholder="사용하실 이메일 주소를 입력해주세요" class="form-control"
+                       th:field="*{email}" th:errorclass="field-error">
+                <p class="field-error" th:errors="*{email}"></p>
+
+                <div class="login-id-label">Password</div>
+                <input type="password" name="password" id="password" placeholder="영문,숫자 포함 특수문자 ~!@#$%^&*가능, 4자~20자로 입력해주세요." class="form-control"
+                       th:field="*{password}" th:errorclass="field-error">
+                <!--            <p>영문,숫자 포함 특수문자 ~!@#$%^&*가능, 4자이상 20자미만입니다.</p>-->
+                <p class="field-error" th:errors="*{password}"></p>
+
+                <div class="login-id-label">Password 재확인</div>
+                <input type="password" name="password2" id="password2" placeholder="동일한 패스워드를 한 번 더 입력해주세요" class="form-control"
+                       th:field="*{password2}" th:errorclass="field-error">
+                <p class="field-error" th:errors="*{password2}"></p>
+            </div>
+
+
+            <div>
+                <input id="admin-check" type="checkbox" name="admin" onclick="onclickAdmin()" style="margin-top: 40px;">관리자
+                <input id="admin-token" type="password" name="adminToken" placeholder="관리자 암호" class="login-input-box" style="display:none">
+            </div>
+            <button id="login-id-submit" type="submit">회원 가입</button>
+        </form>
+        <button onclick="location.href='/'">취소</button>
+    </div>
+
+</div>
+
+</body>
+</html>
